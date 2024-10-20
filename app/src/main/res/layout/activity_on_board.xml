@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activity.OnBoardActivity">
+
+    <ImageView
+        android:id="@+id/logo_on_board_1"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:src="@drawable/logo_onboard_1"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="-50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_title_on_board_1"/>
+
+    <TextView
+        android:id="@+id/tv_title_on_board_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Hallo!"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        android:textAlignment="center"
+        android:layout_marginTop="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo_on_board_1"
+        app:layout_constraintBottom_toTopOf="@id/tv_description_title_onboard_1"/>
+
+    <TextView
+        android:id="@+id/tv_description_title_onboard_1"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Journey
+a place for you to express your feelings
+and also stories about yourself."
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_on_board_1"
+        app:layout_constraintBottom_toTopOf="@id/btn_next_on_board_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    
+    <Button
+        android:id="@+id/btn_next_on_board_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:layout_marginTop="80dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_description_title_onboard_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/logo_on_board_1"
+        app:layout_constraintEnd_toEndOf="@id/logo_on_board_1"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
