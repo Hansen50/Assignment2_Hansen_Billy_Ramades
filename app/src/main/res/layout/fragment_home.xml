@@ -79,6 +79,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:src="@drawable/ic_profile_high_quality"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="@id/tv_greetings_user"
         app:layout_constraintBottom_toBottomOf="@id/tv_bio"
         app:layout_constraintEnd_toEndOf="parent"/>

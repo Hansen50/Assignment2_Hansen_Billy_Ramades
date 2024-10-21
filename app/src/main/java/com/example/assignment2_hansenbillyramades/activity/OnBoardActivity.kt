@@ -29,7 +29,7 @@ class OnBoardActivity : AppCompatActivity() {
         binding = ActivityOnBoardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val text = "Welcome to Journey A place for you to express your feelings and also stories about yourself."
+        val text = "Welcome to Journey \n A place for you to express your feelings and also stories about yourself."
         val spannableText = SpannableString(text)
 
         val startIndex = text.indexOf("Journey")

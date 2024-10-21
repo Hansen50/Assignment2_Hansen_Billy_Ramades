@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
@@ -26,6 +27,7 @@ import com.example.assignment2_hansenbillyramades.ItemDiaryListener
 import com.example.assignment2_hansenbillyramades.R
 import com.example.assignment2_hansenbillyramades.activity.DiaryDetailActivity
 import com.example.assignment2_hansenbillyramades.adapters.ItemDiaryAdapter
+import com.example.assignment2_hansenbillyramades.data.GreetingTextData
 import com.example.assignment2_hansenbillyramades.databinding.CustomBottomSheetBinding
 import com.example.assignment2_hansenbillyramades.databinding.FormCreateDiaryBinding
 import com.example.assignment2_hansenbillyramades.databinding.FragmentHomeBinding
@@ -66,28 +68,34 @@ class HomeFragment : Fragment(), ItemDiaryListener {
             showSortBy()
         }
 
-        val text = "Halo, June!"
-        val spannableTextGreetings = SpannableString(text)
+        val greetingText = GreetingTextData(
+            messageTemplate = "Halo, %s!",
+            name = "June",
+            highlightColor = ContextCompat.getColor(requireContext(), R.color.blue)
+        )
 
-        val startIndex = text.indexOf("June")
-        val endIndex = startIndex + "June".length
-        val journeyColor = ContextCompat.getColor(requireContext(), R.color.blue)
+        val formattedText = String.format(greetingText.messageTemplate, greetingText.name)
+        val spannableTextGreetings = SpannableString(formattedText)
+
+        val startIndex = formattedText.indexOf(greetingText.name)
+        val endIndex = startIndex + greetingText.name.length
 
         spannableTextGreetings.setSpan(
-            ForegroundColorSpan(journeyColor),
+            ForegroundColorSpan(greetingText.highlightColor),
             startIndex,
             endIndex,
-            0
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
         spannableTextGreetings.setSpan(
             StyleSpan(Typeface.BOLD),
             startIndex,
             endIndex,
-            0
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
         binding.tvGreetingsUser.text = spannableTextGreetings
+
     }
 
     private suspend fun loadDiaries() {
@@ -163,8 +171,8 @@ class HomeFragment : Fragment(), ItemDiaryListener {
 
         // Menambahkan listener pada RadioGroup yang menangani perubahan pilihan jika ada,
         // lalu menyimpan nya ke variabel selectedSortId
-        bottomSheetBinding.rgRadioGroupSort.setOnCheckedChangeListener { group, checkedId ->
-            selectedSortId = checkedId
+        bottomSheetBinding.rgRadioGroupSort.setOnCheckedChangeListener { group, checkedRadioButton ->
+            selectedSortId = checkedRadioButton
         }
 
         bottomSheetBinding.btnApply.setOnClickListener {
