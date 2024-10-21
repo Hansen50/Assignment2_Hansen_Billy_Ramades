@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="12dp"
-    android:clipToPadding="true"
     android:background="@color/white"
+    android:clipToPadding="true"
+    android:padding="18dp"
     tools:context=".fragments.SearchFragment">
 
     <TextView
         android:id="@+id/tv_find_your_diary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="18dp"
         android:text="Find Your Diary"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -25,9 +25,9 @@
         android:id="@+id/mc_card_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:elevation="8dp"
         app:cardCornerRadius="8dp"
-        android:layout_marginTop="8dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,8 +37,8 @@
             android:id="@+id/sv_search_diary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
             android:background="@color/white"
+            android:iconifiedByDefault="false"
             android:queryHint="Search Diary" />
 
 
@@ -49,11 +49,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mc_card_view"
+        tools:listitem="@layout/list_item_diary" />
+
+    <TextView
+        android:id="@+id/tv_no_results"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="No Results Found"
+        android:textSize="16sp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mc_card_view"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/list_item_diary"/>
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/rv_diary" />
+
     <!--    <Button-->
     <!--        android:layout_width="0dp"-->
     <!--        android:layout_height="wrap_content"-->

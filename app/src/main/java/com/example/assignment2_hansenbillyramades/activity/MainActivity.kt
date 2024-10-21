@@ -1,5 +1,7 @@
 package com.example.assignment2_hansenbillyramades.activity
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         replaceFragment(HomeFragment())
+
 
         binding.bottomNav.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {

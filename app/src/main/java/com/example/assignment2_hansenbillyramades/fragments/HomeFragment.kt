@@ -3,7 +3,9 @@ package com.example.assignment2_hansenbillyramades.fragments
 import android.app.ActivityOptions
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -36,6 +38,7 @@ class HomeFragment : Fragment(), ItemDiaryListener {
     private lateinit var db: DiaryDatabase
     private lateinit var adapter: ItemDiaryAdapter
     private var selectedSortId: Int = R.id.rb_all
+    // nilai default serta selectedSort ID untuk menyimpan ID dari metode pengurutan yang dipilih.
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -148,27 +151,32 @@ class HomeFragment : Fragment(), ItemDiaryListener {
         showDiaryDialog(diary)
     }
 
+
+    // fun untuk membinding radio button sorting
     private fun showSortBy() {
         val bottomSheetBinding = CustomBottomSheetBinding.inflate(layoutInflater)
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         bottomSheetDialog.setContentView(bottomSheetBinding.root)
-        // Set radio button yang dipilih saat ini
+        // Mengatur radio button yang sesuai dengan selectedSortId agar terpilih saat dialog muncul.
         bottomSheetBinding.rgRadioGroupSort.check(selectedSortId)
 
-        // Listener untuk radio button
+
+        // Menambahkan listener pada RadioGroup yang menangani perubahan pilihan jika ada,
+        // lalu menyimpan nya ke variabel selectedSortId
         bottomSheetBinding.rgRadioGroupSort.setOnCheckedChangeListener { group, checkedId ->
-            selectedSortId = checkedId // Update selectedSortId
+            selectedSortId = checkedId
         }
 
         bottomSheetBinding.btnApply.setOnClickListener {
-            applySorting(selectedSortId)
+            bottomDialogSorting(selectedSortId)
             bottomSheetDialog.dismiss()
         }
 
         bottomSheetDialog.show()
     }
 
-    private fun applySorting(selectedSortId: Int) {
+    // fun unttuk menampilkan dan memperbarui adapter recyclerview jika ingin melakukan sorting
+    private fun bottomDialogSorting(selectedSortId: Int) {
         lifecycleScope.launch {
             val diaries = when (selectedSortId) {
                 R.id.rb_latest -> {
@@ -193,6 +201,8 @@ class HomeFragment : Fragment(), ItemDiaryListener {
         }
     }
 
+
+    // fun untuk menampilkan dialog create dan edit lalu menyimpan dalam ke database
     private fun showDiaryDialog(diary: DiaryEntity? = null) {
         val dialogBinding = FormCreateDiaryBinding.inflate(layoutInflater)
         val dialog = AlertDialog.Builder(requireContext()).create()
@@ -200,6 +210,12 @@ class HomeFragment : Fragment(), ItemDiaryListener {
         dialog.setView(dialogBinding.root)
         dialog.setCancelable(false)
         dialog.show()
+
+        dialog.window?.setBackgroundDrawable(
+            ColorDrawable(
+                Color.TRANSPARENT
+            )
+        )
 
         if (diary != null) {
             dialogBinding.etTitleDiary.setText(diary.title)
@@ -216,8 +232,10 @@ class HomeFragment : Fragment(), ItemDiaryListener {
             val title = dialogBinding.etTitleDiary.text.toString().trim()
             val description = dialogBinding.etDiaryDescription.text.toString().trim()
 
+            // jika field nya kosong maka akan tampil toast message
             if (title.isNotEmpty() && description.isNotEmpty()) {
                 lifecycleScope.launch {
+                    // logic untuk menghadle create dan edit
                     if (diary == null) {
                         db.diaryDao().insertDiary(
                             DiaryEntity(
@@ -239,6 +257,7 @@ class HomeFragment : Fragment(), ItemDiaryListener {
                         )
                         Toast.makeText(context, "Diary updated", Toast.LENGTH_SHORT).show()
                     }
+                    // apabila telah create dan edit maka akan memanggil fun load diares untuk meyinpam ke database dan mengupdate adapter recyclerview
                     loadDiaries()
                     dialog.dismiss()
                 }

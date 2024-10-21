@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 
 class OnBoardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnBoardBinding
+    // Mengambil instance dari PreferenceDataStore secara lazy, yang dimana hanya akan diinisialisasi saat pertama kali diakses.
     private val pref by lazy {
         PreferenceDataStore.getInstance(application.dataStore)
     }
@@ -31,12 +32,12 @@ class OnBoardActivity : AppCompatActivity() {
         binding = ActivityOnBoardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val text = "Welcome to Journey\nA place for you to express your feelings and also stories about yourself."
+        val text = "Welcome to Journey A place for you to express your feelings and also stories about yourself."
         val spannableText = SpannableString(text)
 
         val startIndex = text.indexOf("Journey")
         val endIndex = startIndex + "Journey".length
-        val journeyColor = ContextCompat.getColor(this, R.color.green)
+        val journeyColor = ContextCompat.getColor(this, R.color.blue)
 
         spannableText.setSpan(
             ForegroundColorSpan(journeyColor),
@@ -64,3 +65,7 @@ class OnBoardActivity : AppCompatActivity() {
         }
     }
 }
+
+// lifecycle scope adalah corotine serta launch untuk memulai nya agar kode dapat di jalankan
+// pref set is welcome dalam coroutine, kita memanggil metode untuk menyimpan bahwa pengguna telah melihat onboard.
+// Ini berarti bahwa jika pengguna membuka aplikasi lagi, mereka tidak akan diarahkan ke layar onboarding.

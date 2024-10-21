@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.assignment2_hansenbillyramades.data.DiaryDatabase
@@ -25,6 +26,7 @@ class SearchFragment : Fragment(), ItemDiaryListener {
     private val binding get() = _binding!!
     private lateinit var db: DiaryDatabase
     private lateinit var adapter: ItemDiaryAdapter
+    // adapter: Adapter untuk menampilkan daftar diary di RecyclerView. agar bisa digunakan secara global
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +44,8 @@ class SearchFragment : Fragment(), ItemDiaryListener {
         loadDiaries()
 
         binding.svSearchDiary.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            // onQueryTextSubmit: Memanggil searchDiary jika ada input pencarian yang disubmit.
+            // jika search nya tidak null, maka akan memanggil funsgis searchdiary unutk mencari data
             override fun onQueryTextSubmit(search: String?): Boolean {
                 if (search != null) {
                     searchDiary(search)
@@ -49,8 +53,13 @@ class SearchFragment : Fragment(), ItemDiaryListener {
                 return true
             }
 
+            // onQueryTextChange(ketIK field kosong): Memanggil loadDiaries jika tidak ada teks, atau searchDiary dengan teks pencarian yang baru jika ada.
             override fun onQueryTextChange(newSearch: String?): Boolean {
-                if (newSearch != null) {
+                if (newSearch.isNullOrEmpty()) {
+                    loadDiaries()
+                    binding.tvNoResults.isVisible = false
+                    binding.rvDiary.isVisible = true
+                } else {
                     searchDiary(newSearch)
                 }
                 return true
@@ -62,8 +71,10 @@ class SearchFragment : Fragment(), ItemDiaryListener {
         adapter = ItemDiaryAdapter(emptyList(), this, false)
         binding.rvDiary.layoutManager = LinearLayoutManager(requireContext())
         binding.rvDiary.adapter = adapter
+
     }
 
+    // Memuat semua entri diary dari database menggunakan coroutine dan memperbarui data di adapter.
     private fun loadDiaries() {
         lifecycleScope.launch {
             val diaryList = db.diaryDao().getDiary()
@@ -71,14 +82,18 @@ class SearchFragment : Fragment(), ItemDiaryListener {
         }
     }
 
-    private fun searchDiary(query: String) {
-        if (query.isNotEmpty()) {
-            lifecycleScope.launch {
-                val filteredDiaries = db.diaryDao().searchByName(query)
-                adapter.updateData(filteredDiaries)
-            }
+
+    // Mencari entri diary yang sesuai dengan query pencarian.
+    private fun searchDiary(searchField: String) {
+        lifecycleScope.launch {
+            val searchResults = db.diaryDao().searchByName(searchField)
+            adapter.updateData(searchResults)
+
+            binding.rvDiary.isVisible = searchResults.isNotEmpty()
+            binding.tvNoResults.isVisible = searchResults.isEmpty()
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -98,10 +113,10 @@ class SearchFragment : Fragment(), ItemDiaryListener {
     }
 
     override fun onDelete(diary: DiaryEntity) {
-        //TODO: Implement delete functionality
+        //TOD0
     }
 
     override fun onEdit(diary: DiaryEntity) {
-        //TODO: Implement edit functionality
+        //TODO
     }
 }

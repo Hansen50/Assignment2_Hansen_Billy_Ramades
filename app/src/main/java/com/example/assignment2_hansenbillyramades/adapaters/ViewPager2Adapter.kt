@@ -7,6 +7,7 @@ import com.example.assignment2_hansenbillyramades.fragments.SearchFragment
 
 class ViewPager2Adapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount() = 2
+    // mengembalikan jumlah fragmen yang akan ditampilkan.
 
 
     override fun createFragment(position: Int): Fragment {

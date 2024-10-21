@@ -14,6 +14,7 @@ class ItemDiaryAdapter(
     private var data: List<DiaryEntity>,
     private val listener: ItemDiaryListener,
     private val showIcons: Boolean,
+    //  nilai showIcons adalah Boolean yang menentukan apakah ikon edit dan delete ditampilkan.
 
     ) : RecyclerView.Adapter<ItemDiaryAdapter.MyViewHolder>() {
 
@@ -29,8 +30,10 @@ class ItemDiaryAdapter(
     }
 
     override fun getItemCount() = data.size
+    // Mengembalikan jumlah item dalam daftar diary.
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        // position adalah indeks 0, yang akan mentrigger adapter agar sesuai tepat item data
         val item = data[position]
 
         holder.binding.ivEditCardView.isVisible = showIcons
@@ -53,12 +56,15 @@ class ItemDiaryAdapter(
         }
     }
 
+        // fun yntuk memgubah timestamp (waktu dalam milidetik) menjadi string tanggal
     private fun formatDate(timestamp: Long): String {
         val date = Date(timestamp)
         val formatter = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
         return formatter.format(date)
     }
 
+
+    // memperbarui data yang ditampilkan dan memberi tahu RecyclerView untuk memperbarui tampilan.
     fun updateData(newDiaries: List<DiaryEntity>) {
         data = newDiaries
         notifyDataSetChanged()

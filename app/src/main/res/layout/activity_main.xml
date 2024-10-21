@@ -12,14 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_nav_background"
-        android:elevation="120dp"
+        android:elevation="12dp"
+        android:background="@color/white"
         app:itemActiveIndicatorStyle="@android:color/transparent"
         app:itemIconTint="@color/icon_color"
         app:itemRippleColor="@color/blue_light"
