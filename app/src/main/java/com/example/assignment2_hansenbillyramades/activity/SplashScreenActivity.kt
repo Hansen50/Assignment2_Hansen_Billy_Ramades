@@ -3,15 +3,11 @@ package com.example.assignment2_hansenbillyramades.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.window.SplashScreen
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.assignment2_hansenbillyramades.PreferenceDataStore
-import com.example.assignment2_hansenbillyramades.R
-import com.example.assignment2_hansenbillyramades.dataStore
+import com.example.assignment2_hansenbillyramades.data.PreferenceDataStore
+import com.example.assignment2_hansenbillyramades.data.dataStore
 import com.example.assignment2_hansenbillyramades.databinding.ActivitySplashScreenBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

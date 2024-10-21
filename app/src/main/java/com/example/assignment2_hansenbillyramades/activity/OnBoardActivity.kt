@@ -1,7 +1,6 @@
 package com.example.assignment2_hansenbillyramades.activity
 
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableString
@@ -10,12 +9,10 @@ import android.text.style.StyleSpan
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.assignment2_hansenbillyramades.PreferenceDataStore
+import com.example.assignment2_hansenbillyramades.data.PreferenceDataStore
 import com.example.assignment2_hansenbillyramades.R
-import com.example.assignment2_hansenbillyramades.dataStore
+import com.example.assignment2_hansenbillyramades.data.dataStore
 import com.example.assignment2_hansenbillyramades.databinding.ActivityOnBoardBinding
 import kotlinx.coroutines.launch
 
